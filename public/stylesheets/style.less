@@ -1,0 +1,105 @@
+@bgColor: #ecf0f1;
+@dropShadow: #999999;
+@green: #093;
+@red: #900;
+@black: #222;
+@last: #008B5D;
+@fontColor: #222;
+
+@font-face {
+  font-family: 'Bebas';
+  src: url('../fonts/bebasneue_regular-webfont.eot');
+    src: url('../fonts/bebasneue_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebasneue_regular-webfont.woff') format('woff'),
+         url('../fonts/bebasneue_regular-webfont.ttf') format('truetype'),
+         url('../fonts/bebasneue_regular-webfont.svg#bebas_neue_regularregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'BebasLight';
+  src: url('../fonts/bebasneue_light-webfont.eot');
+    src: url('../fonts/bebasneue_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebasneue_light-webfont.woff') format('woff'),
+         url('../fonts/bebasneue_light-webfont.ttf') format('truetype'),
+         url('../fonts/bebasneue_light-webfont.svg#bebas_neuelight') format('svg');
+    font-weight: normal;
+    font-style: normal; 
+}
+
+@font-face {
+  font-family: 'BebasThin';
+  src: url('../fonts/bebasneue_thin-webfont.eot');
+    src: url('../fonts/bebasneue_thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebasneue_thin-webfont.woff') format('woff'),
+         url('../fonts/bebasneue_thin-webfont.ttf') format('truetype'),
+         url('../fonts/bebasneue_thin-webfont.svg#bebas_neuethin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body{
+  overflow-x: hidden;
+}
+
+canvas{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'BebasLight';
+  text-align:center;
+  font-size: 3em;
+  background-color: @bgColor;
+  color:#e5e5e5;
+  margin: 0;
+  padding: 0;
+}
+
+svg{
+	display: inline;
+	z-index: -1;
+}
+
+.market_name{
+  font-size: 82pt;
+}
+
+.market_title{
+  font-family: 'Bebas';
+}
+
+#subtitle{
+  font-family: 'Bebas';
+}
+
+#canvas{
+   width: 100%;
+   text-align:center;
+}
+
+h1,h2,h3{
+	//text-shadow: -1px 1px @dropShadow;
+}
+
+.markets{
+  color: @fontColor;
+}
+
+.last{
+  color: @last;
+}
+
+.positive{
+  color: @green;
+}
+
+.negative{
+  color: @red;
+}
+
+.stagnant{
+  color: @black;
+}

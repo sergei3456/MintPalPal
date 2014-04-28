@@ -1,0 +1,68 @@
+extends layout
+
+block head
+	script.
+		$(document).ready(function(){
+			$("#btc_table").tablesorter({ sortList: [[4,1]]}); 
+			$("#ltc_table").tablesorter({ sortList: [[4,1]]}); 
+			$(".marketRow").click(function() {
+				window.document.location = $(this).attr("href");
+			});
+		});
+block body
+	div(class="markets")
+		div(class="col-sm-6")
+			h1(class="market_title") BTC Markets
+			table(id="btc_table" class="table table-hover tablesorter")
+				thead
+					tr
+						th Currency
+						th Last Price
+						th High
+						th Low
+						th Change
+				tbody
+					- for(var i = 0; i < markets.length; i++){
+						- var market = markets[i];
+						- if(market.exchange == "BTC"){
+							tr(class="marketRow" href="/#{i}")
+								td #{market.code}/#{market.exchange} 
+								td(class="last") #{market.last_price} 
+								td(class="high") #{market["24hhigh"]} 
+								td(class="low") #{market["24hlow"]} 
+								-if(market.change > 0)
+									td(class="positive") #{market.change}%
+								-else if (market.change < 0)
+									td(class="negative") #{market.change}%
+								-else 
+									td(class="stagnant") #{market.change}%
+						- }
+					- }
+		div(class="col-sm-6")
+			h1(class="market_title") LTC Markets
+			table(id="ltc_table" class="table table-hover tablesorter")
+				thead
+					tr
+						th Currency
+						th Last Price
+						th High
+						th Low
+						th Change
+				tbody
+					- for(var i = 0; i < markets.length; i++){
+						- var market = markets[i];
+						- if(market.exchange == "LTC"){
+							tr(class="marketRow" href="/#{i}")
+								td #{market.code}/#{market.exchange} 
+								td(class="last") #{market.last_price} 
+								td(class="high") #{market["24hhigh"]} 
+								td(class="low") #{market["24hlow"]} 
+								-if(market.change > 0)
+									td(class="positive") #{market.change}%
+								-else if (market.change < 0)
+									td(class="negative") #{market.change}%
+								-else 
+									td(class="stagnant") #{market.change}%
+						- }
+					- }
+block scripts

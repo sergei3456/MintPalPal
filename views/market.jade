@@ -1,0 +1,74 @@
+extends layout
+block head
+	
+block body
+	div(class="markets")
+		div(class="col-sm-12")
+			h1(class="market_title") #{market.code}/#{market.exchange}
+		div(class="col-sm-12")
+			h1 Buy/Sell Split
+			canvas(id="split" width="200" height="200" data-stats="#{stats}")
+		div(class="col-sm-12")
+			h1 Trade History
+			canvas(id="price" data-high="#{market['24hhigh']}" data-low="#{market['24hlow']}" data-market="#{market}"  data-stats="#{stats}")
+
+block scripts
+	script.
+		var splitContext = document.getElementById("split").getContext("2d");
+		var priceCanvas = document.getElementById("price");
+		priceCanvas.width = window.innerWidth;
+		priceCanvas.height = 200;
+		var priceContext = document.getElementById("price").getContext("2d");
+		var stats = document.querySelector('#price'),
+			rawData = stats.dataset;
+		var buys = 0,
+			sells = 0;
+		var data = JSON.parse(rawData.stats);
+		var priceHistory = [];
+		for(var i = 0; i < data.trades.length; i++){
+			var trade = data.trades[i];
+			if(trade.type == "1"){
+				sells++;
+			} else{
+				buys++;
+			}
+			priceHistory.push(parseFloat(trade.price));
+		}
+		console.log(priceHistory);
+		var splitData = [{
+							value: buys,
+							color:"#093"
+						},
+						{	
+							value : sells,
+							color : "#900"
+						}];
+		var scale = [];
+		for(var i = 0; i < 100; i++){
+			scale.push("");
+		}
+		var priceData = {
+							labels : scale,
+							datasets : [{	
+								fillColor : "rgba(220,220,220,0.5)",
+								strokeColor : "rgba(220,220,220,1)",
+								pointColor : "rgba(220,220,220,1)",
+								pointStrokeColor : "#fff",
+								data : priceHistory
+							}]
+						};
+		var priceOptions = {
+			//Boolean - If we show the scale above the chart data			
+			scaleOverlay : false,
+			//Boolean - Whether to show labels on the scale	
+			scaleShowLabels : false,
+			//Boolean - Whether to show a dot for each point
+			pointDot : false,
+		}
+		var splitChart = new Chart(splitContext).Pie(splitData);
+		var priceChart = new Chart(priceContext).Line(priceData, priceOptions);
+
+		window.onresize = function(){
+			priceCanvas.width = window.innerWidth;
+			priceChart = new Chart(priceContext).Line(priceData, priceOptions);
+		}
